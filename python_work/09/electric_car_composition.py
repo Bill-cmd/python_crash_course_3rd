@@ -48,6 +48,15 @@ class Battery:
         """打印一条描述电池容量的消息"""
         print(f"This car has a {self.battery_size}-kWh battery.")
 
+    def get_range(self):
+        """打印一条消息，指出电池的续航里程"""
+        if self.battery_size == 40:
+            range = 150
+        elif self.battery_size == 65:
+            range = 225
+        
+        print(f"This car can go about {range} miles on a full charge.")
+    
 class ElectricCar(Car):
     """电动汽车的独特之处"""
 
@@ -64,7 +73,7 @@ my_leaf = ElectricCar('nissan', 'leaf', 2024)
 print(my_leaf.get_descriptive_name())
 my_leaf.battery.describe_battery()
 my_leaf.fill_gas_tank()
-
+my_leaf.battery.get_range()
 '''
 my_new_car = Car('audi', 'a4', 2024)
 print(my_new_car.get_descriptive_name())
