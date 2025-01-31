@@ -12,3 +12,4 @@ class User:
 user1 = User("Natash", "Ole")
 user1.describe_user()
 user1.greet_user()
+
