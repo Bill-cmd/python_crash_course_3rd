@@ -12,15 +12,19 @@ class User:
     def greet_user(self):
         print(f"Hello {self.first_name.title()} {self.last_name.title()}")
 
-class Admin(User):
-    def __init__(self, first_name, last_name):
-        super().__init__(first_name, last_name)
+class Privileges:
+    def __init__(self):
         self.privileges = ["can add post", "can delete post", "can ban user"]
 
     def show_privileges(self):
-        print(f"{self.first_name.title()} {self.last_name.title()} has below privilege:")
+        print("This user has below privilege:")
         for privilege in self.privileges:
             print(f"\t- {privilege}")
 
+class Admin(User):
+    def __init__(self, first_name, last_name):
+        super().__init__(first_name, last_name)
+        self.privileges = Privileges()
+
 user1 = Admin("Natasha", "Donald")
-user1.show_privileges()
+user1.privileges.show_privileges()
