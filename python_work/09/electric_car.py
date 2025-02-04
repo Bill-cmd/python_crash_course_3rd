@@ -1,3 +1,5 @@
+from car import Car
+'''
 class Car:
     """一次模拟汽车的简单尝试"""
     
@@ -37,6 +39,7 @@ class Car:
     def fill_gas_tank(self):
         """给汽车的油箱加油"""
         print(f"\n===>Fill the gas for this car.<===")
+'''
 
 class ElectricCar(Car):
     """电动汽车的独特之处"""
@@ -54,6 +57,7 @@ class ElectricCar(Car):
         """电动车没有油箱"""
         print("This car doesn't have a gas tank!")
 
+'''
 my_new_car = Car('audi', 'a4', 2024)
 my_new_car.fill_gas_tank()
 
@@ -62,7 +66,6 @@ print(my_leaf.get_descriptive_name())
 my_leaf.describe_battery()
 my_leaf.fill_gas_tank()
 
-'''
 my_new_car = Car('audi', 'a4', 2024)
 print(my_new_car.get_descriptive_name())
 my_new_car.read_odometer()
