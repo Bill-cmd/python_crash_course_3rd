@@ -1,0 +1,14 @@
+In Python you can write clean and readable code.
+In Python you can use variables to store data.
+In Python you can perform arithmetic operations with numbers.
+In Python you can create strings, lists, tuples, dictionaries, and sets.
+In Python you can define functions to encapsulate logic.
+In Python you can use loops to repeat actions.
+In Python you can handle exceptions gracefully using try-except blocks.
+In Python you can work with classes to organize code into reusable objects.
+In Python you can import modules to extend functionality.
+In Python you can manipulate strings, files, and directories efficiently.
+In Python you can use regular expressions for pattern matching.
+In Python you can create interactive applications with GUI libraries.
+In Python you can write scripts that run in the command line.
+In Python you can follow PEP8 guidelines to improve code readability.
