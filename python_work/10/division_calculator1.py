@@ -1,4 +1,4 @@
-import numbers
+#import numbers
 
 def is_number(value):
     """
