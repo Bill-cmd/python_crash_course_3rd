@@ -30,9 +30,6 @@ class AlienInvasion:
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
 
-        # 设置背景颜色
-        self.bg_color = (230, 230, 230)
-
 
     def run_game(self):
         """开始游戏的主循环"""
@@ -40,14 +37,7 @@ class AlienInvasion:
             # 侦听键盘和鼠标事件
             self._check_events()
             self.ship.update()
-            self.bullets.update()
-
-            # 删除已消失的子弹
-            for bullet in self.bullets.copy():
-                if bullet.rect.bottom <= 0:
-                    self.bullets.remove(bullet)
-            print(len(self.bullets))
-    
+            self._update_bullets() 
             # 每次循环时都重绘屏幕
             self._update_screen()
             # 控制游戏刷新速度
@@ -88,9 +78,27 @@ class AlienInvasion:
             self.ship.moving_left = False
 
     def _fire_bullet(self):
-        """创建一颗子弹，并将其加入到编组中"""
-        new_bullet = Bullet(self)
-        self.bullets.add(new_bullet)
+        """创建一颗子弹，并将其加入到编组 bullets"""
+        if len(self.bullets) < self.settings.bullet_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
+    
+    def _update_bullets(self):
+        """更新子弹的位置，并删除已消失的子弹"""
+        # 更新子弹的位置
+        self.bullets.update()
+
+        # 删除已消失的子弹
+        """
+        这里使用了 self.bullets.copy()，这是因为当我们在遍历一个容器时，如果直接修改容器的大小（比如删除元素），
+        可能会导致迭代器失效或出现意外行为。为了避免这种情况，代码通过 self.bullets.copy() 创建了一个副本，
+        然后在副本上进行遍历，同时安全地修改原始容器
+        """
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+        print(len(self.bullets))
+
 
     def _update_screen(self):
         """更新屏幕上的图像，并切换到新屏幕"""
