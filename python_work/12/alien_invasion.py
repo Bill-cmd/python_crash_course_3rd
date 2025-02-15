@@ -29,7 +29,7 @@ class AlienInvasion:
         while True:
             # 侦听键盘和鼠标事件
             self._check_events()
-
+            self.ship.update()
             # 每次循环时都重绘屏幕
             self._update_screen()
             # 控制游戏刷新速度
@@ -41,6 +41,21 @@ class AlienInvasion:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    # 向右移动飞船
+                    self.ship.moving_right = True
+                if event.key == pygame.K_LEFT:
+                    # 向左移动飞船
+                    self.ship.moving_left = True
+
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_RIGHT:
+                    # 停止向右移动飞船
+                    self.ship.moving_right = False
+                if event.key == pygame.K_LEFT:
+                    # 停止向左移动飞船
+                    self.ship.moving_left= False
 
     def _update_screen(self):
         """更新屏幕上的图像，并切换到新屏幕"""

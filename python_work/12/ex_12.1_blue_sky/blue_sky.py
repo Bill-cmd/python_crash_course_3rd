@@ -1,6 +1,7 @@
 import sys
 import pygame
 from settings import Settings
+#from settings import Settings
 
 
 class BlueSky:
@@ -18,7 +19,7 @@ class BlueSky:
         while True:
             self._check_events()
             self.update_screen()
-            self.clock.tick(60)
+            #self.clock.tick(60)
 
     def _check_events(self):
         """响应按键和鼠标事件"""
