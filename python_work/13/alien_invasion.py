@@ -41,6 +41,7 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self._update_bullets() 
+            self._update_aliens()
             # 每次循环时都重绘屏幕
             self._update_screen()
             # 控制游戏刷新速度
@@ -126,6 +127,10 @@ class AlienInvasion:
         new_alien.rect.y = y_position
         self.aliens.add(new_alien)
 
+    def _update_aliens(self):
+        """更新外星人群中所有外星人的位置"""
+        self.aliens.update()
+        
     def _update_screen(self):
         """更新屏幕上的图像，并切换到新屏幕"""
         # 重绘屏幕

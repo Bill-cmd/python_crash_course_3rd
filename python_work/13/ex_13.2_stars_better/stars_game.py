@@ -1,6 +1,6 @@
 import pygame
 import sys
-
+from random import randint
 from settings import Settings
 from star import Star
 
@@ -28,12 +28,16 @@ class StarsGame:
             self.clock.tick(60)
             pygame.display.flip()
 
+    def _get_star_offset(self):
+        """获取星星的偏移量"""
+        offset_size = 15
+        return randint(-1*offset_size, offset_size)
 
     def _create_star(self, x_postion, y_position):
         """创建一个星星并将其放在屏幕上"""
         new_star = Star(self)
-        new_star.rect.x = x_postion
-        new_star.rect.y = y_position
+        new_star.rect.x = x_postion + self._get_star_offset()
+        new_star.rect.y = y_position + self._get_star_offset()
         self.stars.add(new_star)
         
         
