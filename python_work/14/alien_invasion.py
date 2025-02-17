@@ -6,7 +6,7 @@ from ship import Ship
 from bullet import Bullet
 from alien import Alien
 from game_stats import GameStats
-
+from button import Button
 
 class AlienInvasion:
     """管理游戏资源和行为的类"""
@@ -30,15 +30,18 @@ class AlienInvasion:
 
         # 创建一个用于存储游戏统计信息的实例
         self.stats = GameStats(self)
-
+        # 创建飞船
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
-
+        # 创建外星舰队
         self._create_fleet()
-        # 游戏启动后处于活动状态
-        self.game_active = True
 
+        # 游戏启动后处于活动状态
+        self.game_active = False
+
+        #创建Play按钮
+        self.play_button = Button(self, "Play")
 
     def run_game(self):
         """开始游戏的主循环"""
@@ -210,6 +213,10 @@ class AlienInvasion:
         # self.aliens.draw(self.screen) 会遍历 self.aliens 中的每个外星人精灵（Alien 对象），
         # 并调用它们的 blitme() 方法（或类似的绘制方法），将它们绘制到 self.screen 上。
         self.aliens.draw(self.screen)
+
+        # 如果游戏处于非活动状态，就显示Play按钮
+        if not self.game_active:
+            self.play_button.draw_button()
 
         # 让最近绘制的屏幕可见
         pygame.display.flip()
