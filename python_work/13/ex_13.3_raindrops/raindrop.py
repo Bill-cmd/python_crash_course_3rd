@@ -9,6 +9,7 @@ class Raindrop(Sprite):
         """初始化雨滴并设置其初始位置"""
         super().__init__()
         self.screen = raindrop_game.screen
+        self.settings = raindrop_game.settings
         #self.screen_rect = self.screen.get_rect()
 
         # 加载雨滴图像并获取其外接矩形
@@ -21,9 +22,19 @@ class Raindrop(Sprite):
 
         # 存储雨滴的准确位置
         #self.x = float(self.rect.x)
-        #self.y = float(self.rect.y)
+        self.y = float(self.rect.y)
 
     def blitme(self):
         """在指定位置绘制雨滴"""
         self.screen.blit(self.image, self.rect)
 
+    def check_edges(self):
+        """如果雨滴到达屏幕边缘，就返回True"""
+        self.screen_rect = self.screen.get_rect()
+        if self.rect.bottom >= self.screen_rect.bottom:
+            return True
+
+    def update(self):
+        """向下移动雨滴"""
+        self.y += self.settings.raindrop_speed
+        self.rect.y = self.y

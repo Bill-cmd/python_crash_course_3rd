@@ -24,40 +24,44 @@ class RaindropGame:
         """游戏主循环"""
         while True:
             self._check_events()
+            #self.raindrops.update()
+            self._update_raindrops()
             self._update_screen()
             self.clock.tick(60)
             pygame.display.flip()
 
 
     def _create_raindrop(self, x_postion, y_position):
-        """创建一个星星并将其放在屏幕上"""
+        """创建一个雨滴并将其放在屏幕上"""
         new_raindrop = Raindrop(self)
+        # 
+        new_raindrop.y = y_position
         new_raindrop.rect.x = x_postion
         new_raindrop.rect.y = y_position
         self.raindrops.add(new_raindrop)
         
         
     def _create_raindrops(self):
-        """创建多行星星"""
-        # 创建一个星星对象
-        star = Raindrop(self)
-        # 获取星星的宽度和高度
-        star_width, star_height = star.rect.size
+        """创建多行雨滴"""
+        # 创建一个雨滴对象
+        raindrop = Raindrop(self)
+        # 获取雨滴的宽度和高度
+        raindrop_width, raindrop_height = raindrop.rect.size
 
         # 初始化当前x和y坐标
-        current_x, current_y = 2*star_width, 2*star_height
-        # 当当前y坐标小于屏幕高度减去3个星星高度时，循环
-        while current_y < (self.settings.screen_height - 3 * star_height):
-            # 当当前x坐标小于屏幕宽度减去2个星星宽度时，循环
-            while current_x < (self.settings.screen_width - 2 * star_width):
-                # 在当前x和y坐标处创建一个星星
+        current_x, current_y = 2*raindrop_width, 2*raindrop_height
+        # 当当前y坐标小于屏幕高度减去3个雨滴高度时，循环
+        while current_y < (self.settings.screen_height - 1 * raindrop_height):
+            # 当当前x坐标小于屏幕宽度减去2个雨滴宽度时，循环
+            while current_x < (self.settings.screen_width - 2 * raindrop_width):
+                # 在当前x和y坐标处创建一个雨滴
                 self._create_raindrop(current_x, current_y)
-                # 当前x坐标增加2个星星宽度
-                current_x += 2*star_width
-            # 重置当前x坐标为2个星星宽度
-            current_x = 2*star_width
-            # 当前y坐标增加2个星星高度
-            current_y += 2*star_height
+                # 当前x坐标增加2个雨滴宽度
+                current_x += 2*raindrop_width
+            # 重置当前x坐标为2个雨滴宽度
+            current_x = 2*raindrop_width
+            # 当前y坐标增加2个雨滴高度
+            current_y += 2*raindrop_height
    
 
     def _check_events(self):
@@ -73,6 +77,13 @@ class RaindropGame:
         if event.key == pygame.K_q:
             sys.exit()
 
+    def _update_raindrops(self):
+        """更新雨滴的位置，并删除消失的雨滴"""
+        self.raindrops.update()
+        for raindrop in self.raindrops.copy():
+            if raindrop.rect.bottom >= self.settings.screen_height:
+                self.raindrops.remove(raindrop)
+            print(len(self.raindrops))
 
     def _update_screen(self):
         """更新屏幕上的图像，并切换到新屏幕"""
