@@ -102,6 +102,13 @@ class AlienInvasion:
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
         #print(len(self.bullets))
+        # 检查是否有子弹击中了外星人
+        # 如果是这样，就删除相应的子弹和外星人
+        # 将 self.bullets 中的所有⼦弹与 self.aliens 中的所有外星⼈进⾏⽐较，看它们是否重叠了在⼀起。每当有⼦弹和外星⼈的rect 重叠时，
+        # groupcollide() 就在返回的字典中添加⼀个键值对。两个值为 True 的实参告诉 Pygame 在发⽣碰撞时删除对应的⼦弹和外星⼈
+        # 高能子弹：子弹击中外星人后，外星人消失，子弹不消失，第一个实参为False，第二个实参为True
+        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+
 
     def _create_fleet(self):
         """创建外星人群"""
