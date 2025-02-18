@@ -7,6 +7,7 @@ from bullet import Bullet
 from alien import Alien
 from game_stats import GameStats
 from button import Button
+from scoreboard import Scoreboard
 
 class AlienInvasion:
     """管理游戏资源和行为的类"""
@@ -30,6 +31,9 @@ class AlienInvasion:
 
         # 创建一个用于存储游戏统计信息的实例
         self.stats = GameStats(self)
+        # 创建一个用于存储游戏统计信息的实例
+        self.sb = Scoreboard(self)
+
         # 创建飞船
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
@@ -239,6 +243,9 @@ class AlienInvasion:
         # self.aliens.draw(self.screen) 会遍历 self.aliens 中的每个外星人精灵（Alien 对象），
         # 并调用它们的 blitme() 方法（或类似的绘制方法），将它们绘制到 self.screen 上。
         self.aliens.draw(self.screen)
+
+        # 显示得分
+        self.sb.show_score()
 
         # 如果游戏处于非活动状态，就显示Play按钮
         if not self.game_active:
