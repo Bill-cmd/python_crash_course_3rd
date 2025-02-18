@@ -10,7 +10,7 @@ class Settings:
         self.bg_color = (230, 230, 230)
 
         # 飞船的设置
-        self.ship_speed = 10
+        self.ship_speed = 1.5
         self.ship_limit = 1
         # 子弹的参数
         '''
@@ -23,7 +23,7 @@ class Settings:
         # 子弹作弊的设定
         self.bullet_speed = 15
         self.bullet_color = (60, 60, 60)
-        self.bullet_width = 10
+        self.bullet_width = 100
         self.bullet_height = 15
         self.bullet_allowed = 10
 
@@ -46,13 +46,16 @@ class Settings:
 
         # fleet_direction为1表示向右移，为-1表示向左移
         self.fleet_direction = 1
+
+        # 记分
+        self.alien_points = 50
     
     def increase_speed(self):
         """提高速度设置"""
         self.ship_speed *= self.speedup_scale
         self.bullet_speed *= self.speedup_scale
         self.alien_speed *= self.speedup_scale
-        
+
 
         
         

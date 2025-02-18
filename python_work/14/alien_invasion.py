@@ -85,7 +85,9 @@ class AlienInvasion:
             # 还原游戏难度
             self.settings.initialize_dynamic_settings()
             # 重置游戏统计信息
-            self.stats.reset_stats()            
+            self.stats.reset_stats()
+            # 重置游戏得分
+            self.sb.prep_score()       
             # 清空外星人列表和子弹列表
             self.aliens.empty()
             self.bullets.empty()
@@ -152,6 +154,14 @@ class AlienInvasion:
         # groupcollide() 就在返回的字典中添加⼀个键值对。两个值为 True 的实参告诉 Pygame 在发⽣碰撞时删除对应的⼦弹和外星⼈
         # 高能子弹：子弹击中外星人后，外星人消失，子弹不消失，第一个实参为False，第二个实参为True
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+
+        if collisions:
+            # 如果字典 collisions 存在，就遍历其中的所有值。每个值都是⼀个列表，包含被同⼀颗⼦弹击中的所有外星⼈。
+            # 对于每个列表，都将其包含的外星⼈数量乘以⼀个外星⼈的分数，并将结果加⼊当前得分
+            for aliiens in collisions.values():
+                self.stats.score += self.settings.alien_points * len(aliiens)
+            #self.stats.score += self.settings.alien_points
+            self.sb.prep_score()
 
         # 整个外星舰队被全部击落后执行的任务(游戏难度升级)
         if not self.aliens:
