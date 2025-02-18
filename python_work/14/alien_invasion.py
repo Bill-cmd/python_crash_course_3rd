@@ -78,20 +78,20 @@ class AlienInvasion:
         """在玩家单击Play按钮时开始新游戏"""
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
         if button_clicked and not self.game_active:
+            # 还原游戏难度
+            self.settings.initialize_dynamic_settings()
             # 重置游戏统计信息
-            self.stats.reset_stats()
-            self.game_active = True
-
+            self.stats.reset_stats()            
             # 清空外星人列表和子弹列表
             self.aliens.empty()
             self.bullets.empty()
-
             # 创建新的外星人群，并让飞船居中
             self._create_fleet()
             self.ship.center_ship()
-
             # 隐藏光标
             pygame.mouse.set_visible(False)
+            # 重置游戏活动标志
+            self.game_active = True
 
 
     def _check_keydown_envents(self, event):
@@ -149,11 +149,12 @@ class AlienInvasion:
         # 高能子弹：子弹击中外星人后，外星人消失，子弹不消失，第一个实参为False，第二个实参为True
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
 
-        # 无穷无尽的外星舰队
+        # 整个外星舰队被全部击落后执行的任务(游戏难度升级)
         if not self.aliens:
             # 删除现有的子弹并创建新的外星人群
             self.bullets.empty()
             self._create_fleet()
+            self.settings.increase_speed()
 
 
     def _create_fleet(self):
