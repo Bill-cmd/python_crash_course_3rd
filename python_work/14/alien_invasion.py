@@ -87,7 +87,9 @@ class AlienInvasion:
             # 重置游戏统计信息
             self.stats.reset_stats()
             # 重置游戏得分
-            self.sb.prep_score()       
+            self.sb.prep_score()
+            # 重置等级
+            self.sb.prep_level()
             # 清空外星人列表和子弹列表
             self.aliens.empty()
             self.bullets.empty()
@@ -165,14 +167,17 @@ class AlienInvasion:
             # 检查更新最高分
             self.sb.check_high_score()
 
-        # 整个外星舰队被全部击落后执行的任务(游戏难度升级)
+        # 整个外星舰队被全部击落后执行的任务(游戏难度升级并提高等级)
         if not self.aliens:
             # 删除现有的子弹并创建新的外星人群
             self.bullets.empty()
             self._create_fleet()
             self.settings.increase_speed()
+            # 提高等级
+            self.stats.level += 1
+            self.sb.prep_level()
 
-
+        
     def _create_fleet(self):
         """创建外星人群"""
         # 创建一个外星人, 再不断添加，直到一行放不下为止
