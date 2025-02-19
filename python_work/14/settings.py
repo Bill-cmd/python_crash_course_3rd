@@ -11,7 +11,7 @@ class Settings:
 
         # 飞船的设置
         self.ship_speed = 1.5
-        self.ship_limit = 1
+        self.ship_limit = 3
         # 子弹的参数
         '''
         self.bullet_speed = 1.5
@@ -23,9 +23,9 @@ class Settings:
         # 子弹作弊的设定
         self.bullet_speed = 15
         self.bullet_color = (60, 60, 60)
-        self.bullet_width = 500
+        self.bullet_width = 10
         self.bullet_height = 15
-        self.bullet_allowed = 10
+        self.bullet_allowed = 3
 
         # 外星人设置
         self.alien_speed = 1.0

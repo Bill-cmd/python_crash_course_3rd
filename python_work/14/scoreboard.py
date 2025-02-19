@@ -1,10 +1,14 @@
 import pygame.font
+from pygame.sprite import Group
+from ship import Ship # 用于创建飞船编组
 
 class Scoreboard:
     """显示得分信息的类"""
 
     def __init__(self, ai_game):
         """初始化得分属性"""
+        # 将游戏实例赋给⼀个属性，以便在 Scoreboard 类的其他⽅法中访问它
+        self.ai_game = ai_game
         self.screen = ai_game.screen
         self.screen_rect = ai_game.screen.get_rect()
         self.settings = ai_game.settings
@@ -19,6 +23,7 @@ class Scoreboard:
         # 准备最高得分图像
         self.prep_high_score()
         self.prep_level()
+        self.prep_ships()
 
     def prep_score(self):
         """将得分转换为渲染的图像"""
@@ -38,11 +43,13 @@ class Scoreboard:
         self.score_rect.top = 20
 
     def show_score(self):
-         """在屏幕上显示当前得分和最高得分及等级"""
+         """在屏幕上显示当前得分和最高得分及等级还有剩余飞船数量"""
          self.screen.blit(self.score_image, self.score_rect)
          self.screen.blit(self.high_score_image, self.high_score_rect)
          # 显示等级
          self.screen.blit(self.level_image, self.level_rect)
+         # 显示剩余飞船数量. 对编组调⽤ draw()，Pygame 将在屏幕上绘制每艘⻜船
+         self.ships.draw(self.screen)
     
     def prep_high_score(self):
         """将最高得分转换为渲染的图像"""
@@ -71,3 +78,14 @@ class Scoreboard:
         self.level_rect = self.level_image.get_rect()
         self.level_rect.right = self.score_rect.right
         self.level_rect.top = self.score_rect.bottom + 10
+
+    def prep_ships(self):
+        """显示还剩下多少艘飞船"""
+        # 用于存储飞船的图像，一个 Group 对象
+        self.ships = Group()
+        for ship_number in range(self.stats.ships_left):
+            ship = Ship(self.ai_game)
+            ship.rect.x = 10 + ship_number * ship.rect.width
+            ship.rect.y = 10
+            self.ships.add(ship)
+
