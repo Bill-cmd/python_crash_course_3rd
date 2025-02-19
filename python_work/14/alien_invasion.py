@@ -162,6 +162,8 @@ class AlienInvasion:
                 self.stats.score += self.settings.alien_points * len(aliiens)
             #self.stats.score += self.settings.alien_points
             self.sb.prep_score()
+            # 检查更新最高分
+            self.sb.check_high_score()
 
         # 整个外星舰队被全部击落后执行的任务(游戏难度升级)
         if not self.aliens:
